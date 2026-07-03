@@ -6,4 +6,5 @@ app_name = "productos" #Es para redirigir sin utilizar la url
 urlpatterns = [
     path("", views.home, name="home"),
     path("productos/", views.lista_productos, name="lista_productos"),
+    path("producto/<int:producto_id>/", views.detalle_producto, name="detalle_producto")
 ]
