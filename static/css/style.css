@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+main {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.catalogo-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.producto img {
+    max-width: 100%;
+    height: auto;
+}
+
+.producto:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

@@ -5,7 +5,7 @@ def home(request):
     return render(request, 'productos/home.html')
 
 def lista_productos(request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.filter(disponible=True).order_by("-id")
     context = {'productos': productos}
 
     return render(request, 'productos/lista_productos.html', context)
