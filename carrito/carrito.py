@@ -41,7 +41,11 @@ class Carrito:
         if producto_id_str in self.carrito:
             del self.carrito[producto_id_str]
             self.guardar()
-    
+
+    def vaciar(self):
+        self.session['carrito'] = {}
+        self.session.modified = True
+
     def guardar(self):
         self.session['carrito'] = self.carrito
         self.session.modified = True

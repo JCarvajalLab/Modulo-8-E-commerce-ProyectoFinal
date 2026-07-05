@@ -28,3 +28,8 @@ def disminuir_cantidad(request, producto_id):
     carrito = Carrito(request)
     carrito.disminuir(producto_id)
     return redirect('carrito:ver_carrito')
+
+def vaciar_carrito(request):
+    carrito = Carrito(request)
+    carrito.vaciar()
+    return redirect('carrito:ver_carrito')
