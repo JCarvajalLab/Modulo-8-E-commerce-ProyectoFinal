@@ -3,11 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import redirect, render
 from carrito.carrito import Carrito
-from productos.models import Producto
 from .models import Pedido, DetallePedido
-
-
-@login_required
+from django.shortcuts import get_object_or_404
 
 @login_required
 def confirmar_pedido(request):
@@ -18,6 +15,7 @@ def confirmar_pedido(request):
     }
     return render(request, 'pedidos/confirmar_pedido.html', contexto)
 
+@login_required
 def confirmar_compra(request):
     carrito = Carrito(request)
     productos_carrito = carrito.obtener_productos()
@@ -43,3 +41,16 @@ def confirmar_compra(request):
             producto.save()
     carrito.vaciar()
     return redirect('carrito:ver_carrito')
+
+@login_required
+def mis_pedidos(request):
+    pedidos = (Pedido.objects.filter(usuario=request.user).prefetch_related('detalles__producto').order_by('-fecha'))
+    contexto = { 'pedidos': pedidos, }
+    return render(request, 'pedidos/mis_pedidos.html', contexto)
+
+@login_required
+def detalle_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id, usuario=request.user)
+    detalles = pedido.detalles.all()
+    contexto = { 'pedido': pedido, 'detalles': detalles, }
+    return render(request, 'pedidos/detalle_pedido.html', contexto)

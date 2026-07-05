@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Mis pedidos{% endblock title %}
+{% block content %}
+
+<h1>Mis pedidos</h1>
+
+{% if pedidos %}
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>N° Pedido</th>
+            <th>Fecha</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pedido in pedidos %}
+        <tr>
+            <td>Pedido #{{ pedido.id }}</td>
+            <td>{{ pedido.fecha }}</td>
+            <td>${{ pedido.total }}</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <strong>Productos del pedido:</strong>
+                <ul>
+                    {% for detalle in pedido.detalles.all %}
+                        <li>{{ detalle.producto.nombre }} - Cantidad: {{ detalle.cantidad }} - Precio: ${{ detalle.precio_unitario }} - Subtotal: ${{ detalle.subtotal }}</li>
+                    {% empty %}
+                        <li>Este pedido no tiene productos.</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>Aún no tienes pedidos registrados.</p>
+{% endif %}
+<p><a href="{% url 'productos:lista_productos' %}">Volver al catálogo</a></p>
+
+{% endblock content %}
