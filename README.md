@@ -1,9 +1,8 @@
-# PCTRONIC - E-commerce de Tecnología y Computación
+# DESARROLLO DE PORTAFOLIO DE UN PRODUCTO DIGITAL  
 ## Tabla de contenidos
 
 - [Descripción del proyecto](#descripción-del-proyecto)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
-- [Funcionalidades principales](#funcionalidades-principales)
 - [Modelo de datos](#modelo-de-datos)
 - [Rutas principales](#rutas-principales)
 - [Instalación y ejecución](#instalación-y-ejecución)
@@ -135,8 +134,6 @@ cd Modulo-8-E-commerce-ProyectoFinal
 Reemplaza `URL_DEL_REPOSITORIO` y `NOMBRE_DEL_PROYECTO` por los datos reales del repositorio.
 
 ### 2. Crear y activar entorno virtual
-
-En Windows:
 
 ```bash
 python -m venv venv
