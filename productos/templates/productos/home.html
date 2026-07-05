@@ -1,9 +1,69 @@
 {% extends "base.html" %}
-{% block title %}Inicio{% endblock %}
+{% block title %}Inicio{% endblock title %}
 
 {% block content %}
+<section class="p-4 p-md-5 mb-4 bg-dark text-light rounded-3 shadow-sm">
+    <div class="col-lg-8">
+        <p class="text-uppercase small fw-semibold text-info mb-2">
+            Tecnología y computación
+        </p>
 
-    <h1>Bienvenido a Ecommerce Portafolio</h1>
-    <p>Esta será la página principal del proyecto.</p>
+        <h1 class="display-5 fw-bold">
+            Componentes y productos para tu próximo equipo
+        </h1>
 
-{% endblock content%}
+        <p class="fs-5 text-white-50 mb-4">
+            Explora nuestro catálogo de productos de computación, revisa sus detalles
+            y realiza tu compra de forma simple y segura.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary btn-lg" href="{% url 'productos:lista_productos' %}">
+                <i class="bi bi-grid me-2"></i>Ver productos
+            </a>
+
+            <a class="btn btn-outline-light btn-lg" href="{% url 'carrito:ver_carrito' %}">
+                <i class="bi bi-cart3 me-2"></i>Ver carrito
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <i class="bi bi-pc-display fs-2 text-primary"></i>
+                <h2 class="h5 mt-3">Catálogo actualizado</h2>
+                <p class="mb-0 text-body-secondary">
+                    Revisa productos disponibles directamente desde nuestro catálogo.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <i class="bi bi-cart-check fs-2 text-primary"></i>
+                <h2 class="h5 mt-3">Compra organizada</h2>
+                <p class="mb-0 text-body-secondary">
+                    Administra cantidades, revisa subtotales y confirma tu pedido.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <i class="bi bi-shield-check fs-2 text-primary"></i>
+                <h2 class="h5 mt-3">Acceso seguro</h2>
+                <p class="mb-0 text-body-secondary">
+                    Usuarios, pedidos y administración protegidos mediante Django.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
