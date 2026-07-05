@@ -131,7 +131,6 @@ documentación clara en GitHub.
 git clone https://github.com/JCarvajalLab/Modulo-8-E-commerce-ProyectoFinal.git
 cd Modulo-8-E-commerce-ProyectoFinal
 ```
-Reemplaza `URL_DEL_REPOSITORIO` y `NOMBRE_DEL_PROYECTO` por los datos reales del repositorio.
 
 ### 2. Crear y activar entorno virtual
 
@@ -160,7 +159,7 @@ GRANT ALL PRIVILEGES
 ON DATABASE ecommerce_db
 TO ecommerce_user;
 
--- nos conectamos a la base de dato "ecommerce_user" y agregamos el siguiente comando
+-- Nos conectamos a la base de dato "ecommerce_db" y agregamos el siguiente comando
 
 ALTER SCHEMA public OWNER TO ecommerce_user;
 ```
@@ -172,7 +171,7 @@ Crea un archivo llamado `.env` en la raíz del proyecto usando `.env.example` co
 
 Ejemplo:
 
-```PY
+```env
 SECRET_KEY=colocar_secret_key
 DEBUG=True
 
@@ -183,6 +182,12 @@ DB_HOST=localhost
 DB_PORT=5432
 ```
 
+Puedes generar una clave segura ejecutando:
+
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
 El archivo `.env` no debe subirse a GitHub porque contiene información sensible.
 
 ---
@@ -190,7 +195,6 @@ El archivo `.env` no debe subirse a GitHub porque contiene información sensible
 ### 6. Aplicar migraciones
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 ---
@@ -244,45 +248,41 @@ http://127.0.0.1:8000/
 ---
 
 ## Evidencias
-
-Las capturas deben guardarse dentro de una carpeta llamada:
-
 ### Home
 
-![alt text](static/images/image.png)
+![Home](static/images/image.png)
 
 ### Catálogo de productos
-
-![alt text](static/images/image-1.png)
+---
+![Catálogo de productos](static/images/image-1.png)
 
 ### Detalle de producto
-
-![alt text](static/images/image-2.png)
+---
+![Detalle de producto](static/images/image-2.png)
 
 ### Carrito de compras
-
-![alt text](static/images/image-3.png)
+---
+![Carrito de compras](static/images/image-3.png)
 
 ### Resumen de pedido
-
-![alt text](static/images/image-4.png)
+---
+![Resumen de pedido](static/images/image-4.png)
 
 ### Historial de pedidos
-
-![alt text](static/images/image-5.png)
+---
+![Historial de pedidos](static/images/image-5.png)
 
 ### Panel de productos
-
-![alt text](static/images/image-6.png)
+---
+![Panel de productos](static/images/image-6.png)
 
 ### Formulario de producto
-
-![alt text](static/images/image-7.png)
-
+---
+![Formulario de producto](static/images/image-7.png)
 
 ### Panel de administrador Django
 ---
-![alt text](static/images/image-8.png)
+![Panel de administrador Django](static/images/image-8.png)
 
 ## Estructura del proyecto
 
@@ -356,6 +356,15 @@ Las capturas deben guardarse dentro de una carpeta llamada:
         └── 📁css
             ├── style.css
         └── 📁images
+            ├── image-1.png
+            ├── image-2.png
+            ├── image-3.png
+            ├── image-4.png
+            ├── image-5.png
+            ├── image-6.png
+            ├── image-7.png
+            ├── image-8.png
+            ├── image.png
         └── 📁js
     └── 📁templates
         └── 📁includes
@@ -376,11 +385,10 @@ Las capturas deben guardarse dentro de una carpeta llamada:
         ├── tests.py
         ├── urls.py
         ├── views.py
-    ├── .env
     ├── .env.example
     ├── .gitignore
+    ├── crear_usuarios.py
     ├── manage.py
-    ├── pasos.md
     ├── README.md
     └── requirements.txt
 ```
