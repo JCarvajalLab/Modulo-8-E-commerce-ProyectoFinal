@@ -130,3 +130,7 @@ STATICFILES_DIRS = [BASE_DIR / "static",]
 #Archivos subidos por admin
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+## Sessiones 
+
+LOGIN_URL = "usuarios:login"
