@@ -165,6 +165,7 @@ TO ecommerce_user;
 ALTER SCHEMA public OWNER TO ecommerce_user;
 ```
 
+---
 ### 5. Crear archivo `.env`
 
 Crea un archivo llamado `.env` en la raíz del proyecto usando `.env.example` como referencia.
@@ -184,13 +185,28 @@ DB_PORT=5432
 
 El archivo `.env` no debe subirse a GitHub porque contiene información sensible.
 
+---
+
 ### 6. Aplicar migraciones
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
+---
+### 7. Crear usuarios de prueba
 
+Ejecuta este script para crear automáticamente un usuario administrador
+y un usuario cliente (si ya existen, el script solo lo indica y no hace nada):
+
+```bash
+python crear_usuarios.py
+```
+
+Esto crea:
+- `admin` / `Admin12345!` → superusuario, con acceso al panel de productos y a Django Admin.
+- `cliente` / `Cliente12345!` → usuario normal, con acceso al catálogo, carrito y pedidos.
+---
 ### 8. Ejecutar servidor local
 
 ```bash
@@ -310,8 +326,6 @@ Las capturas deben guardarse dentro de una carpeta llamada:
         ├── urls.py
         ├── views.py
     └── 📁productos
-        └── 📁fixtures
-            ├── datos_iniciales.json
         └── 📁migrations
             ├── __init__.py
             ├── 0001_initial.py
