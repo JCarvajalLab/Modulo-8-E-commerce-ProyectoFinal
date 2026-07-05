@@ -2,7 +2,7 @@
     <a href="{% url 'productos:home' %}">Inicio</a> |
     <a href="{% url 'productos:lista_productos' %}">Productos</a> |
     <a href="#">Contacto</a> |
-    <a href="#">🛒 Carrito</a> |
+    <a href="{% url 'carrito:ver_carrito' %}">🛒 Carrito</a> |
     {% if user.is_authenticated %}
         {% if user.is_staff %}
             <a href="{% url 'productos:panel_productos' %}">Panel productos</a> |
