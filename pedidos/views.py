@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from carrito.carrito import Carrito
 from .models import Pedido, DetallePedido
 
@@ -39,7 +39,13 @@ def confirmar_compra(request):
                 producto.disponible = False
             producto.save()
     carrito.vaciar()
-    return redirect('carrito:ver_carrito')
+    return redirect('pedidos:pedido_confirmado',pedido_id=pedido.id)
+
+@login_required
+def pedido_confirmado(request, pedido_id):
+    pedido = get_object_or_404(Pedido.objects.prefetch_related('detalles__producto'), id=pedido_id, usuario=request.user,)
+    contexto = { 'pedido': pedido, }
+    return render(request, 'pedidos/pedido_confirmado.html',contexto)
 
 @login_required
 def mis_pedidos(request):
