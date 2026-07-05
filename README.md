@@ -244,7 +244,7 @@ Las capturas deben guardarse dentro de una carpeta llamada:
 
 ### Detalle de producto
 
-![alt text](static/images/mage-2.png)
+![alt text](static/images/image-2.png)
 
 ### Carrito de compras
 
