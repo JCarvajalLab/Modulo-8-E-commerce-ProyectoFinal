@@ -17,3 +17,14 @@ def eliminar_del_carrito(request, producto_id):
     carrito = Carrito(request)
     carrito.eliminar(producto_id)
     return redirect('carrito:ver_carrito')
+
+def aumentar_cantidad(request, producto_id):
+    carrito = Carrito(request)
+    carrito.aumentar(producto_id)
+    return redirect('carrito:ver_carrito')
+
+
+def disminuir_cantidad(request, producto_id):
+    carrito = Carrito(request)
+    carrito.disminuir(producto_id)
+    return redirect('carrito:ver_carrito')

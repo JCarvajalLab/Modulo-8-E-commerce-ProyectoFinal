@@ -9,8 +9,11 @@ class Carrito:
     def agregar(self, producto_id):
         producto = get_object_or_404(Producto, id=producto_id)
         producto_id_str = str(producto.id)
+        if producto.stock <= 0:
+            return
         if producto_id_str in self.carrito:
-            self.carrito[producto_id_str] += 1
+            if self.carrito[producto_id_str] < producto.stock:
+                self.carrito[producto_id_str] += 1
         else:
             self.carrito[producto_id_str] = 1
         self.guardar()
@@ -42,3 +45,19 @@ class Carrito:
     def guardar(self):
         self.session['carrito'] = self.carrito
         self.session.modified = True
+
+    def aumentar(self, producto_id):
+        producto = get_object_or_404(Producto, id=producto_id)
+        producto_id_str = str(producto.id)
+        if producto_id_str in self.carrito:
+            if self.carrito[producto_id_str] < producto.stock:
+                self.carrito[producto_id_str] += 1
+                self.guardar()
+
+    def disminuir(self, producto_id):
+        producto_id_str = str(producto_id)
+        if producto_id_str in self.carrito:
+            self.carrito[producto_id_str] -= 1
+            if self.carrito[producto_id_str] <= 0:
+                del self.carrito[producto_id_str]
+            self.guardar()
