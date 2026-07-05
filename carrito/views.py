@@ -12,3 +12,8 @@ def agregar_al_carrito(request, producto_id):
     carrito = Carrito(request)
     carrito.agregar(producto_id)
     return redirect('carrito:ver_carrito')
+
+def eliminar_del_carrito(request, producto_id):
+    carrito = Carrito(request)
+    carrito.eliminar(producto_id)
+    return redirect('carrito:ver_carrito')

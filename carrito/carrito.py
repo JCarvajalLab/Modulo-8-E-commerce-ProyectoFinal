@@ -32,6 +32,12 @@ class Carrito:
         for item in self.obtener_productos():
             total += item['subtotal']
         return total
+
+    def eliminar(self, producto_id):
+        producto_id_str = str(producto_id)
+        if producto_id_str in self.carrito:
+            del self.carrito[producto_id_str]
+            self.guardar()
     
     def guardar(self):
         self.session['carrito'] = self.carrito

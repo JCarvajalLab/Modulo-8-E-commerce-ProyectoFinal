@@ -13,6 +13,7 @@
                 <th>Precio unitario</th>
                 <th>Cantidad</th>
                 <th>Subtotal</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -23,6 +24,7 @@
                     <td>${{ item.producto.precio }}</td>
                     <td>{{ item.cantidad }}</td>
                     <td>${{ item.subtotal }}</td>
+                    <td><a href="{% url 'carrito:eliminar_del_carrito' item.producto.id %}">Eliminar</a></td>
                 </tr>
             {% endfor %}
         </tbody>
