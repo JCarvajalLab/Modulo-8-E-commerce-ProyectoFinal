@@ -20,10 +20,13 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('', include('productos.urls')),
     path('', include('usuarios.urls')),
     path('', include('carrito.urls')),
+    path('', include('pedidos.urls')),
+
 ]
 
 if settings.DEBUG:
