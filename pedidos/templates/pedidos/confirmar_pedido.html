@@ -1,41 +1,92 @@
 {% extends "base.html" %}
 {% block title %}Confirmar pedido{% endblock title %}
-{% block content %}
 
-<h1>Resumen del pedido</h1>
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+    <div>
+        <h1 class="h2 mb-1">
+            <i class="bi bi-bag-check me-2"></i>Resumen del pedido
+        </h1>
+        <p class="text-body-secondary mb-0">
+            Revisa los productos antes de confirmar tu compra.
+        </p>
+    </div>
+
+    <a class="btn btn-outline-secondary" href="{% url 'carrito:ver_carrito' %}">
+        <i class="bi bi-arrow-left me-2"></i>Volver al carrito
+    </a>
+</div>
 
 {% if productos_carrito %}
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Producto</th>
+                            <th>Precio unitario</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-end pe-4">Subtotal</th>
+                        </tr>
+                    </thead>
 
-<table border="1" cellpadding="8">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Precio unitario</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
+                    <tbody>
+                        {% for item in productos_carrito %}
+                            <tr>
+                                <td class="ps-4 fw-semibold">{{ item.producto.nombre }}</td>
+                                <td>${{ item.producto.precio }}</td>
+                                <td class="text-center">{{ item.cantidad }}</td>
+                                <td class="text-end pe-4 fw-semibold">${{ item.subtotal }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <tbody>
-        {% for item in productos_carrito %}
-        <tr>
-            <td>{{ item.producto.nombre }}</td>
-            <td>${{ item.producto.precio }}</td>
-            <td>{{ item.cantidad }}</td>
-            <td>${{ item.subtotal }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="row justify-content-end">
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">Total a pagar</h2>
 
-<h3>Total: ${{ total }}</h3>
-<p><a href="{% url 'pedidos:confirmar_compra' %}">Confirmar compra</a></p>
-<p><a href="{% url 'carrito:ver_carrito' %}">Volver al carrito</a></p>
+                    <div class="d-flex justify-content-between border-top pt-3 mb-4">
+                        <span class="fw-semibold">Total</span>
+                        <span class="fs-4 fw-bold text-primary">${{ total }}</span>
+                    </div>
+
+                    <div class="alert alert-info small" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Al confirmar, se registrará tu pedido y se actualizará el stock disponible.
+                    </div>
+
+                    <div class="d-grid">
+                        <a class="btn btn-success btn-lg" href="{% url 'pedidos:confirmar_compra' %}">
+                            <i class="bi bi-check-circle me-2"></i>Confirmar compra
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% else %}
+    <div class="card border-0 shadow-sm text-center">
+        <div class="card-body py-5">
+            <i class="bi bi-bag-x display-4 text-body-secondary"></i>
 
-<p>No existen productos para comprar.</p>
-<p><a href="{% url 'productos:lista_productos' %}">Volver al catálogo</a></p>
+            <h2 class="h4 mt-3">No existen productos para comprar</h2>
 
+            <p class="text-body-secondary mb-4">
+                Agrega productos al carrito antes de continuar con tu pedido.
+            </p>
+
+            <a class="btn btn-primary" href="{% url 'productos:lista_productos' %}">
+                <i class="bi bi-grid me-2"></i>Ir al catálogo
+            </a>
+        </div>
+    </div>
 {% endif %}
 {% endblock content %}

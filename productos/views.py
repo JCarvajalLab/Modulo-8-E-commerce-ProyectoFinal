@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from .forms import ProductoForm
 from django.contrib import messages
+from django.db.models.deletion import ProtectedError
 
 def home(request):
     return render(request, 'productos/home.html')
@@ -67,9 +68,12 @@ def eliminar_producto(request, producto_id):
         raise PermissionDenied
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":
-        producto.delete()
-        messages.success(request,"Producto eliminado correctamente.")
+        try:
+            producto.delete()
+            messages.success(request, "Producto eliminado correctamente.")
+        except ProtectedError:
+            messages.error(request,"No es posible eliminar este producto porque está asociado a uno o más pedidos.")
         return redirect("productos:panel_productos")
-    context = { "producto": producto }
+    context = {"producto": producto}
     return render(request, "productos/confirmar_eliminar.html", context)
 

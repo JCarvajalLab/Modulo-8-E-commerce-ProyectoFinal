@@ -1,14 +1,49 @@
 {% extends "base.html" %}
 {% block title %}Eliminar producto{% endblock title %}
+
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 text-center">
+                <div class="mb-3">
+                    <i class="bi bi-exclamation-triangle display-4 text-danger"></i>
+                </div>
 
-<h1>Eliminar producto</h1>
-<p>¿Seguro que deseas eliminar este producto?</p>
-<p><strong>{{ producto.nombre }}</strong></p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-</form>
-<p><a href="{% url 'productos:panel_productos' %}">Cancelar</a></p>
+                <h1 class="h3 mb-3">Eliminar producto</h1>
 
+                <p class="text-body-secondary mb-4">
+                    Estás a punto de eliminar el producto:
+                </p>
+
+                <div class="border rounded p-3 mb-4 bg-body-tertiary">
+                    <h2 class="h5 mb-1">{{ producto.nombre }}</h2>
+                    <p class="mb-0 text-body-secondary">
+                        Categoría: {{ producto.categoria }} · Stock: {{ producto.stock }}
+                    </p>
+                </div>
+
+                <div class="alert alert-warning text-start" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Esta acción no se puede deshacer. Si el producto tiene relaciones protegidas,
+                    Django puede impedir su eliminación para mantener la integridad de los datos.
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                        <button class="btn btn-danger" type="submit">
+                            <i class="bi bi-trash me-2"></i>Confirmar eliminación
+                        </button>
+
+                        <a class="btn btn-outline-secondary" href="{% url 'productos:panel_productos' %}">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

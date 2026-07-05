@@ -1,43 +1,117 @@
 {% extends "base.html" %}
-
 {% block title %}Carrito{% endblock title %}
 
 {% block content %}
-<h1>Carrito de compras</h1>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+    <div>
+        <h1 class="h2 mb-1">
+            <i class="bi bi-cart3 me-2"></i>Carrito de compras
+        </h1>
+        <p class="text-body-secondary mb-0">
+            Revisa tus productos antes de confirmar el pedido.
+        </p>
+    </div>
+
+    <a class="btn btn-outline-secondary" href="{% url 'productos:lista_productos' %}">
+        <i class="bi bi-arrow-left me-2"></i>Seguir comprando
+    </a>
+</div>
 
 {% if productos_carrito %}
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Precio unitario</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Producto</th>
+                            <th>Precio unitario</th>
+                            <th class="text-center">Cantidad</th>
+                            <th>Subtotal</th>
+                            <th class="text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
 
-        <tbody>
-            {% for item in productos_carrito %}
-                <tr>
-                    <td>{{ item.producto.nombre }}</td>
-                    <td>${{ item.producto.precio }}</td>
-                    <td>
-                        <a href="{% url 'carrito:disminuir_cantidad' item.producto.id %}">-</a>
-                        {{ item.cantidad }}
-                        <a href="{% url 'carrito:aumentar_cantidad' item.producto.id %}">+</a>
-                    </td>
-                    <td>${{ item.subtotal }}</td>
-                    <td><a href="{% url 'carrito:eliminar_del_carrito' item.producto.id %}">Eliminar</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h3>Total: ${{ total }}</h3>
+                    <tbody>
+                        {% for item in productos_carrito %}
+                            <tr>
+                                <td class="ps-4 fw-semibold">
+                                    {{ item.producto.nombre }}
+                                </td>
+
+                                <td>${{ item.producto.precio }}</td>
+
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Modificar cantidad">
+                                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'carrito:disminuir_cantidad' item.producto.id %}" aria-label="Disminuir cantidad">
+                                            <i class="bi bi-dash-lg"></i>
+                                        </a>
+
+                                        <span class="btn btn-light btn-sm disabled">
+                                            {{ item.cantidad }}
+                                        </span>
+
+                                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'carrito:aumentar_cantidad' item.producto.id %}" aria-label="Aumentar cantidad">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="fw-semibold">${{ item.subtotal }}</td>
+
+                                <td class="text-end pe-4">
+                                    <a class="btn btn-outline-danger btn-sm" href="{% url 'carrito:eliminar_del_carrito' item.producto.id %}">
+                                        <i class="bi bi-trash me-1"></i>Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-end">
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">Resumen de compra</h2>
+
+                    <div class="d-flex justify-content-between border-top pt-3 mb-4">
+                        <span class="fw-semibold">Total</span>
+                        <span class="fs-4 fw-bold text-primary">${{ total }}</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary btn-lg" href="{% url 'pedidos:confirmar_pedido' %}">
+                            <i class="bi bi-bag-check me-2"></i>Continuar con el pedido
+                        </a>
+
+                        <a class="btn btn-outline-danger" href="{% url 'carrito:vaciar_carrito' %}">
+                            <i class="bi bi-trash3 me-2"></i>Vaciar carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% else %}
-    <p>Tu carrito está vacío.</p>
+    <div class="card border-0 shadow-sm text-center">
+        <div class="card-body py-5">
+            <i class="bi bi-cart-x display-4 text-body-secondary"></i>
+
+            <h2 class="h4 mt-3">Tu carrito está vacío</h2>
+
+            <p class="text-body-secondary mb-4">
+                Agrega productos desde el catálogo para comenzar tu compra.
+            </p>
+
+            <a class="btn btn-primary" href="{% url 'productos:lista_productos' %}">
+                <i class="bi bi-grid me-2"></i>Ver productos
+            </a>
+        </div>
+    </div>
 {% endif %}
-    <p><a href="{% url 'carrito:vaciar_carrito' %}">Vaciar carrito</a></p>
-    <p><a href="{% url 'pedidos:confirmar_pedido' %}">Confirmar pedido</a></p>
-    <p><a href="{% url 'productos:lista_productos' %}">Volver al catálogo</a></p>
 {% endblock content %}
