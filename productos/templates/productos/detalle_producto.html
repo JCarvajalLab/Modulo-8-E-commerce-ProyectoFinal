@@ -21,5 +21,6 @@
         No
     {% endif %}
 </p>
+<p><a href="{% url 'carrito:agregar_al_carrito' producto.id %}">Agregar al carrito</a></p>
 <p><a href="{% url 'productos:lista_productos' %}">← Volver al catálogo</a></p>
 {% endblock content %}
